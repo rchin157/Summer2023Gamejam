@@ -1,25 +1,52 @@
-[gd_scene load_steps=4 format=3 uid="uid://dqxooq4p6o1cv"]
+[gd_scene load_steps=9 format=3 uid="uid://bnfln5uhoudhc"]
 
+[ext_resource type="Script" path="res://Scripts/BorisLevel.gd" id="1_equfu"]
 [ext_resource type="Script" path="res://Scripts/terrainController.gd" id="1_svqsd"]
 [ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="2_jjxmm"]
+[ext_resource type="PackedScene" uid="uid://bm4lgl8geydge" path="res://Entities/Player.tscn" id="3_shuja"]
+[ext_resource type="PackedScene" uid="uid://ctjqas3s1jcj1" path="res://Entities/Ball.tscn" id="4_xtevo"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_yb0yw"]
 radius = 1.0
 
-[node name="RylanLevel" type="Node3D"]
-script = ExtResource("1_svqsd")
+[sub_resource type="NavigationMesh" id="NavigationMesh_3t2sr"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.832921, 0.442539, -0.332267, 0, 0.60042, 0.799685, 0.553392, 0.666074, -0.500103, 0, 0, 0)
-shadow_enabled = true
+[sub_resource type="Environment" id="Environment_pgyr2"]
+sdfgi_enabled = true
+sdfgi_min_cell_size = 0.976563
+sdfgi_y_scale = 0
+
+[node name="RylanLevel" type="Node3D"]
+script = ExtResource("1_equfu")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.96694, 0)
+visible = false
 
 [node name="ball" parent="RigidBody3D" instance=ExtResource("2_jjxmm")]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
 shape = SubResource("SphereShape3D_yb0yw")
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.961305, 0.275486, 0, -0.275486, 0.961305, 9.53674e-07, 9.02136, 10.6292)
+[node name="Player" parent="." instance=ExtResource("3_shuja")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.95917, 4.01542)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_3t2sr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D"]
+skeleton = NodePath("../..")
+script = ExtResource("1_svqsd")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_pgyr2")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.66951, 14.1429, -1.63007)
+light_bake_mode = 1
+shadow_enabled = true
+omni_range = 1000.0
+omni_attenuation = 0.0206173
+
+[node name="Ball" parent="." instance=ExtResource("4_xtevo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.47217, -0.207343)

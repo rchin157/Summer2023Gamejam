@@ -20,8 +20,8 @@ func _process(delta):
 	var new_velocity = (next_location - current_location).normalized() * SPEED
 	
 	navAgent.set_velocity(new_velocity)
-	COR.rotate_x( -1.0*delta*velocity.x)
-	COR.rotate_z( -1.0*delta*velocity.z)
+	COR.rotate_x( -1.0*delta*velocity.z)
+	COR.rotate_z( -1.0*delta*velocity.x)
 	pass
 
 
