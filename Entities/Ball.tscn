@@ -9,9 +9,16 @@ radius = 1.0
 [node name="Ball" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_uai6r")
 
-[node name="ball" parent="." instance=ExtResource("1_ivbmq")]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_ph1nv")
 
+[node name="Center Of Rotation" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="ball" parent="Center Of Rotation" instance=ExtResource("1_ivbmq")]
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+avoidance_enabled = true
+
+[connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]

@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmpn07u3lv6d4"]
+
+[ext_resource type="Script" path="res://Scripts/BallFood.gd" id="1_6xfv7"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8ka8g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_u3e2m"]
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" groups=["BallFood"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0997, 5.19657)
+avoidance_enabled = false
+radius = 0.95
+script = ExtResource("1_6xfv7")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." groups=["BallFood"]]
+
+[node name="Mesh" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_8ka8g")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_u3e2m")
