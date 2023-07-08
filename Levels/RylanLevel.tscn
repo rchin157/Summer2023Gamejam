@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://bnfln5uhoudhc"]
+
+[ext_resource type="Script" path="res://Scripts/terrainController.gd" id="1_svqsd"]
+[ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="2_jjxmm"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yb0yw"]
+radius = 1.0
+
+[node name="RylanLevel" type="Node3D"]
+script = ExtResource("1_svqsd")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.832921, 0.442539, -0.332267, 0, 0.60042, 0.799685, 0.553392, 0.666074, -0.500103, 0, 0, 0)
+shadow_enabled = true
+
+[node name="RigidBody3D" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.96694, 0)
+
+[node name="ball" parent="RigidBody3D" instance=ExtResource("2_jjxmm")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
+shape = SubResource("SphereShape3D_yb0yw")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.961305, 0.275486, 0, -0.275486, 0.961305, 9.53674e-07, 9.02136, 10.6292)
