@@ -1,7 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2wuhqplbc4bv"]
+[gd_scene load_steps=4 format=3 uid="uid://ctjqas3s1jcj1"]
 
 [ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="1_ivbmq"]
+[ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_uai6r"]
 
-[node name="Ball" type="Node3D"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ph1nv"]
+radius = 1.0
 
-[node name="BallMesh" parent="." instance=ExtResource("1_ivbmq")]
+[node name="Ball" type="CharacterBody3D" groups=["Enemy"]]
+script = ExtResource("1_uai6r")
+
+[node name="ball" parent="." instance=ExtResource("1_ivbmq")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ph1nv")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

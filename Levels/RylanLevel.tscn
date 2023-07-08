@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bnfln5uhoudhc"]
+[gd_scene load_steps=4 format=3 uid="uid://dqxooq4p6o1cv"]
 
 [ext_resource type="Script" path="res://Scripts/terrainController.gd" id="1_svqsd"]
 [ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="2_jjxmm"]
