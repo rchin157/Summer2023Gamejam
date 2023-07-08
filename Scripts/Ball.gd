@@ -1,13 +1,18 @@
+class_name Ball
 extends CharacterBody3D
 
 @onready var navAgent = $NavigationAgent3D
-@onready var COR = $"Center Of Rotation"
-@onready var hitbox = $CollisionShape3D
-@onready var ballMesh = $"Center Of Rotation/ball"
-const SPEED = 3.0;
+@onready var ballMesh = $"ball"
+@onready var animator = $AnimationPlayer
+@onready var lookAwayTimer = $Timer
+
+var SPEED = 3.0;
+var rng = RandomNumberGenerator.new()
+var target
 var radius = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	rng.randomize()
 	pass # Replace with function body.
 
 func updateTargetLocation(targetLocation):
@@ -15,13 +20,19 @@ func updateTargetLocation(targetLocation):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	pass
+
+func roll(delta):
+	updateTargetLocation(target.global_position)
 	var current_location = global_transform.origin
 	var next_location = navAgent.get_next_path_position()
 	var new_velocity = (next_location - current_location).normalized() * SPEED
 	
 	navAgent.set_velocity(new_velocity)
-	COR.rotate_x( -1.0*delta*velocity.z)
-	COR.rotate_z( -1.0*delta*velocity.x)
+	
+	var rotateDir = navAgent.velocity.cross(Vector3.DOWN).normalized()
+	
+	ballMesh.rotate(rotateDir,delta*SPEED)
 	pass
 
 
@@ -42,7 +53,7 @@ func devour(collide):
 	var pos = collide.get_position()
 	var mesh = collide.get_collider().get_parent().gibMesh()
 	mesh.get_parent().remove_child(mesh)
-	COR.add_child(mesh)
+	ballMesh.add_child(mesh)
 	print(pos)
 	mesh.position = pos-position
 	collide.get_collider().queue_free()
@@ -51,6 +62,21 @@ func devour(collide):
 	setRadius(radius)
 	
 func setRadius(radius):
-	hitbox.shape.set_radius(radius)
-	COR.position = Vector3(0,radius,0)
-	ballMesh.scale = Vector3(radius,radius,radius)
+	scale = Vector3(radius,radius,radius)
+
+#Spooky Behaviour
+func _on_visible_on_screen_notifier_3d_screen_entered():
+	print("Ball visible")
+	lookAwayTimer.stop()
+	pass # Replace with function body.
+
+
+func _on_visible_on_screen_notifier_3d_screen_exited():
+	print("ball exited")
+	lookAwayTimer.wait_time = rng.randf_range(2,5)
+	lookAwayTimer.start()
+	pass # Replace with function body.
+
+
+func _on_animation_player_animation_finished(_anim_name):
+	pass # Replace with function body.

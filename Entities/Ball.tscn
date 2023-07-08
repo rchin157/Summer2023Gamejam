@@ -1,25 +1,90 @@
-[gd_scene load_steps=4 format=3 uid="uid://ctjqas3s1jcj1"]
+[gd_scene load_steps=9 format=3 uid="uid://ctjqas3s1jcj1"]
 
 [ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="1_ivbmq"]
 [ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_uai6r"]
+[ext_resource type="Script" path="res://Scripts/BallStates/BallStateMachine.gd" id="3_ci5so"]
+[ext_resource type="Script" path="res://Scripts/BallStates/BallEmergeState.gd" id="4_677ie"]
+[ext_resource type="Script" path="res://Scripts/BallStates/BallRollState.gd" id="5_ymlyu"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ph1nv"]
 radius = 1.0
 
+[sub_resource type="Animation" id="Animation_y8xdx"]
+resource_name = "Emerge"
+length = 2.0
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../ball")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, -1, 0, 2, 1, 0, 1, 0)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../ball")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("..:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mj31c"]
+_data = {
+"Emerge": SubResource("Animation_y8xdx")
+}
+
 [node name="Ball" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_uai6r")
+
+[node name="Orbit" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
+
+[node name="ball" parent="." instance=ExtResource("1_ivbmq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_ph1nv")
 
-[node name="Center Of Rotation" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-
-[node name="ball" parent="Center Of Rotation" instance=ExtResource("1_ivbmq")]
-
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 0.2
+path_height_offset = 0.5
 avoidance_enabled = true
 
+[node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]
+aabb = AABB(-1, 0, -1, 2, 2, 2)
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_ci5so")
+initial_state = NodePath("Emerge")
+
+[node name="Emerge" type="Node" parent="StateMachine"]
+script = ExtResource("4_677ie")
+
+[node name="Roll" type="Node" parent="StateMachine"]
+script = ExtResource("5_ymlyu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../VisibleOnScreenNotifier3D")
+libraries = {
+"": SubResource("AnimationLibrary_mj31c")
+}
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="StateMachine" method="_on_timer_timeout"]

@@ -8,8 +8,7 @@
 
 [node name="NavigationObstacle3D" type="NavigationObstacle3D" groups=["BallFood"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0997, 5.19657)
-avoidance_enabled = false
-radius = 0.95
+radius = 2.0
 script = ExtResource("1_6xfv7")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." groups=["BallFood"]]
