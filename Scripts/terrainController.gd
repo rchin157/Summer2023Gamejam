@@ -6,13 +6,13 @@ var rng = RandomNumberGenerator.new()
 
 var mymesh = ArrayMesh.new()
 
-var terrainSizeX = 1000
-var terrainSizeY = 1000
+var terrainSize = 1000
 var terrainHeightScale = 20.0
-var subX = 500
-var subY = 500
+var sub = 499
 
-var heights = []
+var shape = HeightMapShape3D.new()
+
+var heightData
 
 @onready var floormat = preload("res://Assets/Materials/floor_standard_material_3d.tres")
 
@@ -21,42 +21,22 @@ var heights = []
 @onready var clutter3 = preload("res://Entities/clutter3.tscn")
 @onready var bf = preload("res://Entities/BallFood.tscn")
 
+@onready var colShape = $StaticBody3D/CollisionShape3D
+@export var colliderRatio = 1.0
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setupNoise()
-	generateTerrain()
-	create_trimesh_collision()
+	generateTerrainHM()
 	addClutter(5000)
+	await get_tree().create_timer(2).timeout
 	get_parent().bake_navigation_mesh(false)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
-
-func generateTerrain():
-	var plane = PlaneMesh.new()
-	plane.size = Vector2(terrainSizeX, terrainSizeY)
-	plane.subdivide_width = subX
-	plane.subdivide_depth = subY
-	mymesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, plane.get_mesh_arrays())
-	mdt.create_from_surface(mymesh, 0)
-	var width = subX+2
-	var depth = subY+2
-	for i in range(width):
-		heights.append([])
-		for j in range(depth):
-			var vertex = mdt.get_vertex(i*width + j)
-			var height = terrainHeightScale*abs(noise.get_noise_2d(i, j))
-			heights[i].append(height)
-			vertex += Vector3(0, height, 0)
-			mdt.set_vertex(i*width + j, vertex)
-	mymesh.clear_surfaces()
-	mdt.set_material(floormat)
-	mdt.commit_to_surface(mymesh)
-	mesh = mymesh
 
 
 func setupNoise():
@@ -68,11 +48,10 @@ func setupNoise():
 
 
 func addClutter(amount):
-	var width = subX+1
-	var depth = subY+1
+	var width = sub+1
 	for i in range(amount):
-		var x = rng.randf_range(terrainSizeX/10.0, terrainSizeX-(terrainSizeX/10.0))
-		var z = rng.randf_range(terrainSizeX/10.0, terrainSizeX-(terrainSizeX/10.0))
+		var x = rng.randf_range(0.0, terrainSize)
+		var z = rng.randf_range(0.0, terrainSize)
 		var clutterChoice = rng.randi_range(0, 2)
 		var clut = bf.instantiate()
 #		if clutterChoice == 0:
@@ -81,12 +60,40 @@ func addClutter(amount):
 #			clut = clutter2.instantiate()
 #		else:
 #			clut = clutter3.instantiate()
-		var meshHeightX = int(floor(x/(terrainSizeY/float(width))))
-		var meshHeightY = int(floor(z/(terrainSizeY/float(width))))
-		clut.set_position(Vector3(x-(terrainSizeX/2.0), heights[meshHeightY][meshHeightX], z-(terrainSizeX/2.0)))
+		var meshHeightX = int(floor((x/float(terrainSize)) * float(width)))
+		var meshHeightY = int(floor((z/float(terrainSize)) * float(width)))
+		clut.set_position(Vector3(x-(terrainSize/2.0), heightData[meshHeightY*(width+1) + meshHeightX], z-(terrainSize/2.0)))
 		add_child(clut)
 
+
+func generateTerrainHM():
+	var hm = noise.get_image(sub+2, sub+2)
+	hm.save_png("hm.png")
+	hm.convert(Image.FORMAT_RF)
+	material_override.set_shader_parameter("heightmap", ImageTexture.create_from_image(hm))
+	material_override.set_shader_parameter("heightRatio", terrainHeightScale)
+#	mesh.size = Vector2(terrainSize, terrainSize)
+#	mesh.subdivide_width = sub
+#	mesh.subdivide_depth = sub
+	heightData = hm.get_data().to_float32_array()
+	for i in range(heightData.size()):
+		heightData[i] *= terrainHeightScale
 		
+	var plane = PlaneMesh.new()
+	var mymesh = ArrayMesh.new()
+	plane.size = Vector2(terrainSize, terrainSize)
+	plane.subdivide_width = sub
+	plane.subdivide_depth = sub
+	mymesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, plane.get_mesh_arrays())
+	mesh = mymesh
+	
+	shape.map_width = hm.get_width()
+	shape.map_depth = hm.get_height()
+	shape.map_data = heightData
+	var scaleRatio = terrainSize/float(hm.get_width())
+	colShape.scale = Vector3(scaleRatio, 1, scaleRatio)
+	colShape.shape = shape
+	#mesh = shape.get_debug_mesh()
 		
 		
 		
