@@ -22,8 +22,3 @@ MusicGlobal="*res://Levels/MusicGlobal.tscn"
 [filesystem]
 
 import/fbx/enabled=false
-
-[navigation]
-
-3d/default_cell_size=0.5
-3d/default_cell_height=0.5

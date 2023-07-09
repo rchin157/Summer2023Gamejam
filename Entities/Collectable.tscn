@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b644jprxeckfe"]
+
+[ext_resource type="Script" path="res://Scripts/Collectable.gd" id="1_fn22n"]
+[ext_resource type="PackedScene" uid="uid://c8fkrt7ghvjlm" path="res://Assets/Models/punpun.blend" id="2_rr8u3"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6mkm4"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_o3yof"]
+height = 2.2
+radius = 0.6
+
+[node name="Collectable" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_6mkm4")
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("1_fn22n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("CylinderShape3D_o3yof")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.704125, 0)
+light_color = Color(0, 1, 0, 1)
+light_energy = 4.0
+light_indirect_energy = 4.0
+omni_range = 10.0
+
+[node name="punpun" parent="." instance=ExtResource("2_rr8u3")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -1.00078, 0)
+
+[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]

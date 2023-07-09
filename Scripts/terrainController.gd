@@ -28,8 +28,8 @@ var heightData
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	setupNoise()
-	generateTerrainHM()
-	addClutter(5000)
+	#generateTerrainHM()
+	#addClutter(5000)
 	await get_tree().create_timer(2).timeout
 	get_parent().bake_navigation_mesh(false)
 
@@ -85,6 +85,9 @@ func generateTerrainHM():
 	plane.subdivide_width = sub
 	plane.subdivide_depth = sub
 	mymesh.add_surface_from_arrays(Mesh.PRIMITIVE_TRIANGLES, plane.get_mesh_arrays())
+	mdt.create_from_surface(mymesh, 0)
+	for i in range(mdt.get_vertex_count()):
+		var vertex = mdt.get_vertex(i)
 	mesh = mymesh
 	
 	shape.map_width = hm.get_width()
