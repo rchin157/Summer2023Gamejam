@@ -40,22 +40,11 @@ navigation_mesh = SubResource("NavigationMesh_5kiaa")
 mesh = SubResource("PlaneMesh_rjva5")
 
 [node name="BallFood" parent="." instance=ExtResource("4_4ussq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1.1, 5.197)
-mass = 5
-size = 15
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20, 0.5, 0)
+mass = 1
+size = 1
 
 [node name="BallFood2" parent="." instance=ExtResource("4_4ussq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.267, 1.1, 20)
-mass = 5
-size = 15
-
-[node name="BallFood3" parent="." instance=ExtResource("4_4ussq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26689, 1.0997, 5.19657)
-mass = 5
-size = 15
-
-[node name="BallFood4" parent="." instance=ExtResource("4_4ussq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.26689, 1.0997, 5.19657)
-vertices = PackedVector3Array(-0.16396, 0, 4.5651, 0.682376, 0, 9.43851, 1.4265, 0, 5.20843, 2.75424, 0, 5.71413, 0.0934925, 0, 4.65969)
-mass = 5
-size = 15
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 20)
+mass = 1
+size = 2

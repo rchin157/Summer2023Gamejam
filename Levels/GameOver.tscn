@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bd23c0j5w5wif"]
+[gd_scene load_steps=5 format=3 uid="uid://duruhncbl5yqi"]
 
-[ext_resource type="Script" path="res://Scripts/StartScreen.gd" id="1_2jtl8"]
-[ext_resource type="Texture2D" uid="uid://df8dvi0a5h8h0" path="res://icon.svg" id="2_5bkep"]
+[ext_resource type="Script" path="res://Scripts/GameOver.gd" id="1_6ch0q"]
+[ext_resource type="Texture2D" uid="uid://df8dvi0a5h8h0" path="res://icon.svg" id="2_xyr74"]
 
 [sub_resource type="Theme" id="Theme_1cwxc"]
 
@@ -34,14 +34,14 @@ cache/0/50/0/kerning_overrides/16/0 = Vector2(0, 0)
 cache/0/50/0/kerning_overrides/20/0 = Vector2(0, 0)
 cache/0/50/0/kerning_overrides/50/0 = Vector2(0, 0)
 
-[node name="StartScreen" type="Control"]
+[node name="GameOver" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_2jtl8")
+script = ExtResource("1_6ch0q")
 metadata/_edit_use_anchors_ = true
 
 [node name="TextureRect" type="TextureRect" parent="."]
@@ -51,7 +51,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_5bkep")
+texture = ExtResource("2_xyr74")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -59,7 +59,7 @@ offset_left = 382.0
 offset_top = 550.0
 offset_right = 775.0
 offset_bottom = 630.0
-text = "START GAME"
+text = "BACK TO START"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
@@ -70,6 +70,6 @@ offset_bottom = 132.0
 theme = SubResource("Theme_1cwxc")
 theme_override_fonts/normal_font = SubResource("FontFile_157km")
 theme_override_font_sizes/normal_font_size = 50
-text = "UNTITLED BALL GAME"
+text = "LOSE"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

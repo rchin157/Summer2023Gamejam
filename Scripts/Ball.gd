@@ -9,6 +9,11 @@ extends CharacterBody3D
 var SPEED = 3.0;
 var rng = RandomNumberGenerator.new()
 var target
+
+signal volumeChanged(_volume)
+
+var volume = 1
+
 var radius = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -47,20 +52,28 @@ func checkCollision():
 	var collider = collide.get_collider(0)
 	if collider.is_in_group("BallFood"):
 		devour(collide)
+		
+	if collider.is_in_group("Player"):
+		get_tree().change_scene_to_file("res://Levels/GameOver.tscn")
 	pass
 
 func devour(collide):
 	var pos = collide.get_position()
-	var mesh = collide.get_collider().get_parent().gibMesh()
-	mesh.get_parent().remove_child(mesh)
-	ballMesh.add_child(mesh)
-	print(pos)
-	mesh.position = pos-position
-	collide.get_collider().queue_free()
+	var mesh = collide.get_collider().gibMesh()
+	if collide.get_collider().size <= volume:
+		mesh.get_parent().remove_child(mesh)
+		ballMesh.add_child(mesh)
+		print(pos)
+		mesh.position = pos-position
+		collide.get_collider().queue_free()
+		addVolume(collide.get_collider().mass)
 	
-	radius = radius+0.25
+func addVolume(mass):
+	volume+=mass
+	volumeChanged.emit(volume)
+	radius = sqrt(volume)
 	setRadius(radius)
-	
+
 func setRadius(radius):
 	scale = Vector3(radius,radius,radius)
 

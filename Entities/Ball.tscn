@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://ctjqas3s1jcj1"]
+[gd_scene load_steps=11 format=3 uid="uid://ctjqas3s1jcj1"]
 
 [ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="1_ivbmq"]
 [ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_uai6r"]
+[ext_resource type="AudioStream" uid="uid://b70jun0d22vjh" path="res://Assets/SoundEffects/BallStatic.wav" id="2_7vw6b"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallStateMachine.gd" id="3_ci5so"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallEmergeState.gd" id="4_677ie"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallRollState.gd" id="5_ymlyu"]
@@ -39,19 +40,28 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_tglt0"]
+length = 0.001
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mj31c"]
 _data = {
-"Emerge": SubResource("Animation_y8xdx")
+"Emerge": SubResource("Animation_y8xdx"),
+"RESET": SubResource("Animation_tglt0")
 }
 
 [node name="Ball" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_uai6r")
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+stream = ExtResource("2_7vw6b")
+autoplay = true
+
 [node name="Orbit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
 
 [node name="ball" parent="." instance=ExtResource("1_ivbmq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

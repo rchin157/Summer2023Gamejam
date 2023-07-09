@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://c7qfbmlx71db6"]
+
+[ext_resource type="Script" path="res://Scripts/MusicGlobal.gd" id="1_2ubc0"]
+[ext_resource type="AudioStream" uid="uid://brgppolbobiar" path="res://Assets/Music/Game Over.wav" id="2_yrgfh"]
+
+[node name="MusicGlobal" type="Node"]
+script = ExtResource("1_2ubc0")
+
+[node name="GameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_yrgfh")
