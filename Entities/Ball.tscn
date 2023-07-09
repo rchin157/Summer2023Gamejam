@@ -10,6 +10,16 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_ph1nv"]
 radius = 1.0
 
+[sub_resource type="Animation" id="Animation_yhc5r"]
+resource_name = "ANGER"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.1, 1, 0.1, -0.1, 0, 0.2, 1, 0, -0.1, 0.1, 1, 1, 0, 0, 0)
+
 [sub_resource type="Animation" id="Animation_y8xdx"]
 resource_name = "Emerge"
 length = 2.0
@@ -54,16 +64,6 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_tglt0"]
 length = 0.001
-
-[sub_resource type="Animation" id="Animation_yhc5r"]
-resource_name = "ANGER"
-tracks/0/type = "position_3d"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.1, 1, 0.1, -0.1, 0, 0.2, 1, 0, -0.1, 0.1, 1, 1, 0, 0, 0)
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_mj31c"]
 _data = {

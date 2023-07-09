@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://d0o5c8kcb7o48"]
+[gd_scene load_steps=6 format=3 uid="uid://dr2ascwqqhpy6"]
 
 [ext_resource type="Script" path="res://Scripts/BallFood.gd" id="1_8xq8u"]
 [ext_resource type="ArrayMesh" uid="uid://cvhv6mys6aedv" path="res://Assets/Models/tree.obj" id="2_ojlc8"]
@@ -20,7 +20,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.22928, 0)
 shape = SubResource("CylinderShape3D_hutdx")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, -0.0930772, 0)
 mesh = ExtResource("2_ojlc8")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_4o0ht")

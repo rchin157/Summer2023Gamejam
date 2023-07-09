@@ -29,9 +29,11 @@ shape = SubResource("CylinderShape3D_o3yof")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.704125, 0)
 light_color = Color(0, 1, 0, 1)
-light_energy = 4.0
-light_indirect_energy = 4.0
+light_energy = 2.0
+light_indirect_energy = 3.0
+light_bake_mode = 1
 omni_range = 10.0
+omni_attenuation = 1.93187
 
 [node name="punpun" parent="." instance=ExtResource("2_rr8u3")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -1.00078, 0)

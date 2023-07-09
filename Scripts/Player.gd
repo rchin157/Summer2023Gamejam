@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 1000
+const SPEED = 3
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -32,7 +32,7 @@ func _physics_process(delta):
 	
 	var mx = Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
 	var my = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up")
-	var horizontalVel = (neck.transform.basis * Vector3(mx, 0, my)).normalized()*SPEED*delta
+	var horizontalVel = (neck.transform.basis * Vector3(mx, 0, my)).normalized()*SPEED
 	velocity.x = horizontalVel.x
 	velocity.z = horizontalVel.z
 	
