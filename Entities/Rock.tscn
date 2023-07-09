@@ -15,7 +15,7 @@ size = 1
 shape = SubResource("SphereShape3D_orl1t")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00284302, -0.0366119, 0.00362587)
 mesh = ExtResource("2_shxln")
 skeleton = NodePath("")
 

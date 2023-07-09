@@ -22,6 +22,9 @@ func _ready():
 func playSong(index: int):
 	musicArray[index].play(0)
 
+func playSound(index: int):
+	soundArray[index].play(0)
+
 func stopAll():
 	for i in range(musicArray.size()):
 		musicArray[i].stop()

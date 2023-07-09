@@ -18,6 +18,7 @@ var radius = 1
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	rng.randomize()
+	MusicGlobal.winProgress.connect(_winProgress)
 	pass # Replace with function body.
 
 func updateTargetLocation(targetLocation):
@@ -78,6 +79,10 @@ func addVolume(mass):
 
 func setRadius(radius):
 	scale = Vector3(radius,radius,radius)
+	var meshBabies = ballMesh.get_children()
+	var inverseScale = Vector3(1/radius,1/radius,1/radius)
+	for i in range (1,meshBabies.size(),1):
+		meshBabies[i].scale = inverseScale
 
 #Spooky Behaviour
 func _on_visible_on_screen_notifier_3d_screen_entered():
@@ -85,6 +90,10 @@ func _on_visible_on_screen_notifier_3d_screen_entered():
 	lookAwayTimer.stop()
 	pass # Replace with function body.
 
+#Game Gets harder here
+func _winProgress():
+	MusicGlobal.playSound(0)
+	SPEED+=0.25
 
 func _on_visible_on_screen_notifier_3d_screen_exited():
 	print("ball exited")
