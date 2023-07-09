@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://crdyy13xyypva"]
+
+[ext_resource type="Script" path="res://Scripts/BallFood.gd" id="1_5orv2"]
+[ext_resource type="ArrayMesh" uid="uid://cjak05eepabgu" path="res://Assets/Models/rock.obj" id="2_shxln"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_orl1t"]
+radius = 0.25
+
+[node name="NavigationObstacle3D" type="StaticBody3D" groups=["BallFood"]]
+script = ExtResource("1_5orv2")
+mass = 1
+size = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_orl1t")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
+mesh = ExtResource("2_shxln")
+skeleton = NodePath("")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+radius = 0.75

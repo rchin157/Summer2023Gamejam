@@ -17,7 +17,7 @@ func enter():
 
 #Note: Add logic here to see if its a valid spot, otherwise do nothing (enrage?)
 func lookAwayTimerEnd():
-	var looking = owner.target.debugRayCast(20)
+	var looking = owner.target.debugRayCast(owner.radius+20)
 	if looking != null:
 		stateMachine.transition_to("Emerge")
 		owner.set_visible(false)

@@ -61,10 +61,12 @@ func devour(collide):
 	var pos = collide.get_position()
 	var mesh = collide.get_collider().gibMesh()
 	if collide.get_collider().size <= volume:
+		var meshPosition = mesh.global_position
 		mesh.get_parent().remove_child(mesh)
 		ballMesh.add_child(mesh)
+		mesh.global_position = meshPosition
+		mesh.global_rotation = Vector3.ZERO
 		print(pos)
-		mesh.position = pos-position
 		collide.get_collider().queue_free()
 		addVolume(collide.get_collider().mass)
 	

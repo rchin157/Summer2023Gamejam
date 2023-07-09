@@ -1,10 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://bn61fqsqp7182"]
+[gd_scene load_steps=5 format=3 uid="uid://bn61fqsqp7182"]
 
 [ext_resource type="Script" path="res://Scripts/MusicGlobal.gd" id="1_2ubc0"]
 [ext_resource type="AudioStream" uid="uid://brgppolbobiar" path="res://Assets/Music/Game Over.wav" id="2_yrgfh"]
+[ext_resource type="AudioStream" uid="uid://c70i4fqe2elln" path="res://Assets/Music/Horror Zone.wav" id="3_4ylpx"]
+[ext_resource type="AudioStream" uid="uid://ds1gtn23kkalr" path="res://Assets/SoundEffects/120_CineDeep_SP_311_03-[AudioTrimmer.com].wav" id="4_3sqhq"]
 
 [node name="MusicGlobal" type="Node"]
 script = ExtResource("1_2ubc0")
 
 [node name="GameOver" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_yrgfh")
+
+[node name="HorrorZone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4ylpx")
+volume_db = -5.622
+
+[node name="Chime" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_3sqhq")

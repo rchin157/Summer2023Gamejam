@@ -1,9 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://bmy3cnvwwi72m"]
+[gd_scene load_steps=11 format=3 uid="uid://bmy3cnvwwi72m"]
 
 [ext_resource type="Script" path="res://Scripts/BorisLevel.gd" id="1_644tb"]
 [ext_resource type="PackedScene" uid="uid://ctjqas3s1jcj1" path="res://Entities/Ball.tscn" id="1_bosnr"]
 [ext_resource type="PackedScene" uid="uid://bm4lgl8geydge" path="res://Entities/Player.tscn" id="2_m5mye"]
 [ext_resource type="PackedScene" uid="uid://bmpn07u3lv6d4" path="res://Entities/BallFood.tscn" id="4_4ussq"]
+[ext_resource type="PackedScene" uid="uid://d0o5c8kcb7o48" path="res://Entities/Tree.tscn" id="5_qmsxs"]
+[ext_resource type="PackedScene" uid="uid://crdyy13xyypva" path="res://Entities/Rock.tscn" id="6_xqa43"]
+[ext_resource type="PackedScene" uid="uid://b644jprxeckfe" path="res://Entities/Collectable.tscn" id="7_vneq8"]
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_iv6sa"]
 
@@ -48,3 +51,42 @@ size = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 20)
 mass = 1
 size = 2
+
+[node name="NavigationObstacle3D" parent="." instance=ExtResource("5_qmsxs")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.43266, 0.0195694, 7.7054)
+
+[node name="NavigationObstacle3D2" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 12)
+
+[node name="NavigationObstacle3D3" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.96794, 0, 10.8635)
+
+[node name="NavigationObstacle3D4" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.180447, 0, 14.0799)
+
+[node name="NavigationObstacle3D5" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01597, 0, 9.87444)
+
+[node name="NavigationObstacle3D6" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.56583, 0, 2.72537)
+
+[node name="NavigationObstacle3D7" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.69361, 0, 14.3193)
+
+[node name="NavigationObstacle3D8" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.30915, 0, 9.3737)
+
+[node name="NavigationObstacle3D9" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.974764, 0, 9.15905)
+
+[node name="NavigationObstacle3D10" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.18594, 0, 4.42845)
+
+[node name="NavigationObstacle3D11" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.12144, 0, 5.99687)
+
+[node name="NavigationObstacle3D12" parent="." instance=ExtResource("6_xqa43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56453, 0, 12.3477)
+
+[node name="Collectable" parent="." instance=ExtResource("7_vneq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63837, 0.992261, 11.1225)

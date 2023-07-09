@@ -7,6 +7,8 @@ extends Node3D
 func _ready():
 	ball.target = player
 	ball.volumeChanged.connect(checkVolume)
+	MusicGlobal.stopAll()
+	MusicGlobal.playSong(1)
 	pass # Replace with function body.
 
 func checkVolume(volume):

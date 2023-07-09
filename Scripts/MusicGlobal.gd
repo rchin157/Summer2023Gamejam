@@ -2,14 +2,21 @@ extends Node
 
 var winning = 0
 var musicArray
+var soundArray
+signal winProgress
 
-signal ballMassUpdated
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	musicArray = [
-		$GameOver
+		$GameOver,
+		$HorrorZone
 	]
+	
+	soundArray = [
+		$Chime	
+	]
+	
 	pass # Replace with function body.
 
 func playSong(index: int):
@@ -21,5 +28,6 @@ func stopAll():
 
 func raiseWinning():
 	winning+=1
+	winProgress.emit()
 	if winning>=8:
 		get_tree().change_scene_to_file("res://Levels/Win.tscn")

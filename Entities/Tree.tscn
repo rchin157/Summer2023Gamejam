@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://d0o5c8kcb7o48"]
+
+[ext_resource type="Script" path="res://Scripts/BallFood.gd" id="1_8xq8u"]
+[ext_resource type="ArrayMesh" uid="uid://cvhv6mys6aedv" path="res://Assets/Models/tree.obj" id="2_ojlc8"]
+[ext_resource type="Texture2D" uid="uid://caitl6l08arwt" path="res://Assets/Models/textures/Cone.001 Base Color.png" id="3_nkuyb"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_hutdx"]
+height = 4.804
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o0ht"]
+albedo_texture = ExtResource("3_nkuyb")
+
+[node name="NavigationObstacle3D" type="StaticBody3D" groups=["BallFood"]]
+script = ExtResource("1_8xq8u")
+mass = 2
+size = 5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 1.22928, 0)
+shape = SubResource("CylinderShape3D_hutdx")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = ExtResource("2_ojlc8")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("StandardMaterial3D_4o0ht")
+
+[node name="NavigationObstacle3D" type="NavigationObstacle3D" parent="."]
+radius = 1.5
