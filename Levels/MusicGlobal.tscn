@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=3 uid="uid://bn61fqsqp7182"]
+[gd_scene load_steps=7 format=3 uid="uid://bn61fqsqp7182"]
 
 [ext_resource type="Script" path="res://Scripts/MusicGlobal.gd" id="1_2ubc0"]
 [ext_resource type="AudioStream" uid="uid://brgppolbobiar" path="res://Assets/Music/Game Over.wav" id="2_yrgfh"]
 [ext_resource type="AudioStream" uid="uid://c70i4fqe2elln" path="res://Assets/Music/Horror Zone.wav" id="3_4ylpx"]
 [ext_resource type="AudioStream" uid="uid://ds1gtn23kkalr" path="res://Assets/SoundEffects/120_CineDeep_SP_311_03-[AudioTrimmer.com].wav" id="4_3sqhq"]
+[ext_resource type="AudioStream" uid="uid://dvj5woi6s6jj3" path="res://Assets/SoundEffects/Footsteps-in-grass-moderate-A-www.fesliyanstudios.com.wav" id="5_mko1a"]
+[ext_resource type="AudioStream" uid="uid://ds3xtak54jure" path="res://Assets/Music/Ballstyle.wav" id="6_2kg1o"]
 
 [node name="MusicGlobal" type="Node"]
 script = ExtResource("1_2ubc0")
@@ -17,3 +19,15 @@ volume_db = -5.622
 
 [node name="Chime" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_3sqhq")
+
+[node name="Walk" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_mko1a")
+volume_db = -5.717
+
+[node name="BallStyle" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2kg1o")
+volume_db = -23.423
+
+[node name="Win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_2kg1o")
+volume_db = -23.423

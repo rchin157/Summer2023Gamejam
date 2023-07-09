@@ -26,7 +26,19 @@ func animationEnded(_animName):
 func enter():
 	pass
 
+func playerTouched():
+	pass
+
+func lookedAt():
+	pass
+
+func lookedAway():
+	pass
+
 func lookAwayTimerEnd():
+	pass
+
+func enrageEnded():
 	pass
 
 func exit():

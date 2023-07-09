@@ -1,11 +1,25 @@
-[gd_scene load_steps=12 format=3 uid="uid://ctjqas3s1jcj1"]
+[gd_scene load_steps=18 format=3 uid="uid://ctjqas3s1jcj1"]
 
-[ext_resource type="PackedScene" uid="uid://bgcbrhtpj21na" path="res://Assets/Models/ball.blend" id="1_ivbmq"]
 [ext_resource type="Script" path="res://Scripts/Ball.gd" id="1_uai6r"]
 [ext_resource type="AudioStream" uid="uid://b70jun0d22vjh" path="res://Assets/SoundEffects/BallStatic.wav" id="2_7vw6b"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallStateMachine.gd" id="3_ci5so"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallEmergeState.gd" id="4_677ie"]
 [ext_resource type="Script" path="res://Scripts/BallStates/BallRollState.gd" id="5_ymlyu"]
+[ext_resource type="Script" path="res://Scripts/BallStates/BallEnragedRollState.gd" id="6_dxbci"]
+[ext_resource type="Script" path="res://Scripts/BallStates/BallEnragedIdleState.gd" id="7_fafan"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_r4aup"]
+radius = 1.0
+height = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fme2n"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0xx07"]
+seamless = true
+noise = SubResource("FastNoiseLite_fme2n")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i31b1"]
+albedo_texture = SubResource("NoiseTexture2D_0xx07")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ph1nv"]
 radius = 1.0
@@ -23,20 +37,20 @@ tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 0.1, 1, 0.1, -0.1, 0, 0.2, 1, 
 [sub_resource type="Animation" id="Animation_y8xdx"]
 resource_name = "Emerge"
 length = 2.0
-tracks/0/type = "position_3d"
+tracks/0/type = "rotation_3d"
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/path = NodePath("../ball")
-tracks/0/interp = 2
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
-tracks/0/keys = PackedFloat32Array(0, 1, 0, -1, 0, 2, 1, 0, 1, 0)
-tracks/1/type = "rotation_3d"
+tracks/0/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/type = "position_3d"
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/path = NodePath("../ball")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
-tracks/1/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -1, 0, 2, 1, 0, 1, 0)
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -49,18 +63,6 @@ tracks/2/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("../CollisionShape3D:disabled")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
 
 [sub_resource type="Animation" id="Animation_tglt0"]
 length = 0.001
@@ -72,8 +74,16 @@ _data = {
 "RESET": SubResource("Animation_tglt0")
 }
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_r03n0"]
+radius = 1.25
+
 [node name="Ball" type="CharacterBody3D" groups=["Enemy"]]
 script = ExtResource("1_uai6r")
+
+[node name="ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("SphereMesh_r4aup")
+surface_material_override/0 = SubResource("StandardMaterial3D_i31b1")
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -84,9 +94,6 @@ max_distance = 20.0
 
 [node name="Orbit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
-
-[node name="ball" parent="." instance=ExtResource("1_ivbmq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -109,6 +116,12 @@ script = ExtResource("4_677ie")
 [node name="Roll" type="Node" parent="StateMachine"]
 script = ExtResource("5_ymlyu")
 
+[node name="EnragedRoll" type="Node" parent="StateMachine"]
+script = ExtResource("6_dxbci")
+
+[node name="EnragedIdle" type="Node" parent="StateMachine"]
+script = ExtResource("7_fafan")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../VisibleOnScreenNotifier3D")
 libraries = {
@@ -118,8 +131,21 @@ libraries = {
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("SphereShape3D_r03n0")
+
+[node name="EnrageTimer" type="Timer" parent="."]
+wait_time = 10.0
+
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
-[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="." method="_on_visible_on_screen_notifier_3d_screen_exited"]
+[connection signal="screen_entered" from="VisibleOnScreenNotifier3D" to="StateMachine" method="_on_visible_on_screen_notifier_3d_screen_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier3D" to="StateMachine" method="_on_visible_on_screen_notifier_3d_screen_exited"]
 [connection signal="animation_finished" from="AnimationPlayer" to="StateMachine" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="StateMachine" method="_on_timer_timeout"]
+[connection signal="body_entered" from="Area3D" to="StateMachine" method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="EnrageTimer" to="StateMachine" method="_on_enrage_timer_timeout"]

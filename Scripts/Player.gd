@@ -5,11 +5,11 @@ const SPEED = 10
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
+var walking = false
 var inputBools = [0,0,0,0]
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
-@onready var debugCube := $DebugCube
 @onready var frontcast := $Neck/Camera3D/LookRayCast
 var rng = RandomNumberGenerator.new()
 
@@ -33,6 +33,16 @@ func _physics_process(delta):
 	var mx = Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
 	var my = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up")
 	var horizontalVel = (neck.transform.basis * Vector3(mx, 0, my)).normalized()*SPEED
+	
+	if get_position_delta().length() == 0:
+		if walking:
+			walking = false
+			MusicGlobal.stopSound(1)
+	else:
+		if !walking:
+			walking = true
+			MusicGlobal.playSound(1)
+	
 	velocity.x = horizontalVel.x
 	velocity.z = horizontalVel.z
 	
@@ -68,6 +78,5 @@ func debugRayCast(minimumDist):
 		if i == 20:
 			return null
 	
-	debugCube.position = frontcast.get_collision_point()
 	frontcast.set_rotation(Vector3.ZERO)
 	return frontcast.get_collision_point()

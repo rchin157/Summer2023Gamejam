@@ -2,7 +2,14 @@
 extends BallState
 
 func update(_delta):
-	owner.roll(_delta)
+	if owner.getMad:
+		owner.startEnrage()
+		if owner.looking:
+			stateMachine.transition_to("EnragedIdle")
+		else:
+			stateMachine.transition_to("EnragedRoll")
+	else:
+		owner.roll(_delta)
 	pass
 
 func physics_update(_delta):
@@ -11,7 +18,14 @@ func physics_update(_delta):
 func animationEnded(_animName):
 	stateMachine.transition_to("Roll")
 	pass
-	
+
+func lookedAway():
+	owner.startLookAwayTimer()
+
+func lookedAt():
+	owner.lookAwayTimer.stop()
+	pass # Replace with function body.
+
 func enter():
 	pass
 
@@ -22,6 +36,10 @@ func lookAwayTimerEnd():
 		stateMachine.transition_to("Emerge")
 		owner.set_visible(false)
 		owner.global_position = looking
+	pass
+
+func playerTouched():
+	get_tree().change_scene_to_file("res://Levels/GameOver.tscn")
 	pass
 
 func exit():

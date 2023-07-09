@@ -53,7 +53,7 @@ mass = 1
 size = 2
 
 [node name="NavigationObstacle3D" parent="." instance=ExtResource("5_qmsxs")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -7.43266, 0.0195694, 7.7054)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.43266, 0.0195694, 7.7054)
 
 [node name="NavigationObstacle3D2" parent="." instance=ExtResource("6_xqa43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 0, 12)
@@ -90,3 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.56453, 0, 12.3477)
 
 [node name="Collectable" parent="." instance=ExtResource("7_vneq8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.63837, 0.992261, 11.1225)
+activeStart = true
+
+[node name="Collectable2" parent="." instance=ExtResource("7_vneq8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.76229, 0.992261, 18.072)

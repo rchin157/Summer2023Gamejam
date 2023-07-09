@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bd23c0j5w5wif"]
 
 [ext_resource type="Script" path="res://Scripts/StartScreen.gd" id="1_2jtl8"]
-[ext_resource type="Texture2D" uid="uid://df8dvi0a5h8h0" path="res://icon.svg" id="2_5bkep"]
+[ext_resource type="Texture2D" uid="uid://dns4av5x2mqxi" path="res://Assets/StartScreen.png" id="2_tafj5"]
 
 [sub_resource type="Theme" id="Theme_1cwxc"]
 
@@ -51,7 +51,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_5bkep")
+texture = ExtResource("2_tafj5")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
@@ -65,11 +65,11 @@ text = "START GAME"
 layout_mode = 0
 offset_left = 294.0
 offset_top = 43.0
-offset_right = 838.0
+offset_right = 1001.0
 offset_bottom = 132.0
 theme = SubResource("Theme_1cwxc")
 theme_override_fonts/normal_font = SubResource("FontFile_157km")
 theme_override_font_sizes/normal_font_size = 50
-text = "UNTITLED BALL GAME"
+text = "BALL GAME (working title)"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

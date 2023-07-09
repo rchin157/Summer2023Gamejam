@@ -10,11 +10,14 @@ signal winProgress
 func _ready():
 	musicArray = [
 		$GameOver,
-		$HorrorZone
+		$HorrorZone,
+		$BallStyle,
+		$Win
 	]
 	
 	soundArray = [
-		$Chime	
+		$Chime,
+		$Walk	
 	]
 	
 	pass # Replace with function body.
@@ -24,6 +27,9 @@ func playSong(index: int):
 
 func playSound(index: int):
 	soundArray[index].play(0)
+
+func stopSound(index: int):
+	soundArray[index].stop()
 
 func stopAll():
 	for i in range(musicArray.size()):

@@ -19,6 +19,13 @@ func enter():
 	owner.animator.play("Emerge")
 	pass
 
+func lookedAway():
+	owner.startLookAwayTimer()
+
+func lookedAt():
+	owner.lookAwayTimer.stop()
+	pass # Replace with function body.
+
 func lookAwayTimerEnd():
 	pass
 

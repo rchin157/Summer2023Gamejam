@@ -5,7 +5,12 @@ extends CharacterBody3D
 @onready var ballMesh = $"ball"
 @onready var animator = $AnimationPlayer
 @onready var lookAwayTimer = $Timer
+@export var activeStart: bool
+@onready var enrageTimer = $EnrageTimer
+@onready var staticPlayer = $AudioStreamPlayer3D
 
+var getMad = false
+var looking = false;
 var SPEED = 3.0;
 var rng = RandomNumberGenerator.new()
 var target
@@ -19,7 +24,14 @@ var radius = 1
 func _ready():
 	rng.randomize()
 	MusicGlobal.winProgress.connect(_winProgress)
+	if !activeStart:
+		hide()
 	pass # Replace with function body.
+
+func startEnrage():
+	MusicGlobal.playSound(0)
+	getMad = false
+	enrageTimer.start()
 
 func updateTargetLocation(targetLocation):
 	navAgent.target_position = targetLocation
@@ -53,9 +65,7 @@ func checkCollision():
 	var collider = collide.get_collider(0)
 	if collider.is_in_group("BallFood"):
 		devour(collide)
-		
-	if collider.is_in_group("Player"):
-		get_tree().change_scene_to_file("res://Levels/GameOver.tscn")
+
 	pass
 
 func devour(collide):
@@ -67,7 +77,6 @@ func devour(collide):
 		ballMesh.add_child(mesh)
 		mesh.global_position = meshPosition
 		mesh.global_rotation = Vector3.ZERO
-		print(pos)
 		collide.get_collider().queue_free()
 		addVolume(collide.get_collider().mass)
 	
@@ -84,22 +93,20 @@ func setRadius(radius):
 	for i in range (1,meshBabies.size(),1):
 		meshBabies[i].scale = inverseScale
 
-#Spooky Behaviour
-func _on_visible_on_screen_notifier_3d_screen_entered():
-	print("Ball visible")
-	lookAwayTimer.stop()
-	pass # Replace with function body.
+
 
 #Game Gets harder here
 func _winProgress():
-	MusicGlobal.playSound(0)
-	SPEED+=0.25
+	if !activeStart:
+		show()
+		activeStart = true
+	else:
+		getMad = true;
+		SPEED+=0.25
 
-func _on_visible_on_screen_notifier_3d_screen_exited():
-	print("ball exited")
+func startLookAwayTimer():
 	lookAwayTimer.wait_time = rng.randf_range(2,5)
 	lookAwayTimer.start()
-	pass # Replace with function body.
 
 
 func _on_animation_player_animation_finished(_anim_name):

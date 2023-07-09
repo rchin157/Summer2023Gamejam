@@ -11,6 +11,7 @@ radius = 0.6
 
 [node name="Collectable" type="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_fn22n")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 collision_mask = 0
@@ -21,7 +22,6 @@ shape = SubResource("CylinderShape3D_6mkm4")
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
 collision_mask = 8
-script = ExtResource("1_fn22n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 shape = SubResource("CylinderShape3D_o3yof")
@@ -38,4 +38,4 @@ omni_attenuation = 1.93187
 [node name="punpun" parent="." instance=ExtResource("2_rr8u3")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, -1.00078, 0)
 
-[connection signal="body_entered" from="Area3D" to="Area3D" method="_on_body_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
