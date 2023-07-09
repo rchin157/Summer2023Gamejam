@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://dqdkmsje38us3"]
+[gd_scene load_steps=6 format=3 uid="uid://cdpm6ow40xo2d"]
 
 [ext_resource type="Script" path="res://Scripts/Win.gd" id="1_seulx"]
-[ext_resource type="Texture2D" uid="uid://df8dvi0a5h8h0" path="res://icon.svg" id="2_av3lo"]
+[ext_resource type="Texture2D" uid="uid://bk15ki1vr3dkf" path="res://Assets/00001-2080842941.png" id="2_0mg76"]
+[ext_resource type="Texture2D" uid="uid://xiikpgvyj3m8" path="res://Assets/PunpunIdle.png" id="3_q07d0"]
 
 [sub_resource type="Theme" id="Theme_1cwxc"]
 
@@ -51,25 +52,30 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_av3lo")
+texture = ExtResource("2_0mg76")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 382.0
-offset_top = 550.0
-offset_right = 775.0
-offset_bottom = 630.0
+offset_left = 60.0
+offset_top = 600.0
+offset_right = 453.0
+offset_bottom = 680.0
 text = "MAIN MENU"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 layout_mode = 0
-offset_left = 294.0
-offset_top = 43.0
-offset_right = 838.0
-offset_bottom = 132.0
+offset_left = 52.0
+offset_top = 20.0
+offset_right = 596.0
+offset_bottom = 109.0
 theme = SubResource("Theme_1cwxc")
 theme_override_fonts/normal_font = SubResource("FontFile_157km")
 theme_override_font_sizes/normal_font_size = 50
 text = "WIN"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(534, 201)
+rotation = -0.23911
+texture = ExtResource("3_q07d0")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
