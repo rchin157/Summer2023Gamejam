@@ -33,16 +33,7 @@ func _physics_process(delta):
 	var mx = Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
 	var my = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up")
 	var horizontalVel = (neck.transform.basis * Vector3(mx, 0, my)).normalized()*SPEED
-	
-	if get_position_delta().length() == 0:
-		if walking:
-			walking = false
-			MusicGlobal.stopSound(1)
-	else:
-		if !walking:
-			walking = true
-			MusicGlobal.playSound(1)
-	
+
 	velocity.x = horizontalVel.x
 	velocity.z = horizontalVel.z
 	

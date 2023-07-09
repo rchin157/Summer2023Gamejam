@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://bn61fqsqp7182"]
+[gd_scene load_steps=8 format=3 uid="uid://bn61fqsqp7182"]
 
 [ext_resource type="Script" path="res://Scripts/MusicGlobal.gd" id="1_2ubc0"]
 [ext_resource type="AudioStream" uid="uid://brgppolbobiar" path="res://Assets/Music/Game Over.wav" id="2_yrgfh"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://ds1gtn23kkalr" path="res://Assets/SoundEffects/120_CineDeep_SP_311_03-[AudioTrimmer.com].wav" id="4_3sqhq"]
 [ext_resource type="AudioStream" uid="uid://dvj5woi6s6jj3" path="res://Assets/SoundEffects/Footsteps-in-grass-moderate-A-www.fesliyanstudios.com.wav" id="5_mko1a"]
 [ext_resource type="AudioStream" uid="uid://ds3xtak54jure" path="res://Assets/Music/Ballstyle.wav" id="6_2kg1o"]
+[ext_resource type="AudioStream" uid="uid://doqdp2p4jvso2" path="res://Assets/Music/Return-Home.wav" id="7_xov1b"]
 
 [node name="MusicGlobal" type="Node"]
 script = ExtResource("1_2ubc0")
@@ -29,5 +30,5 @@ stream = ExtResource("6_2kg1o")
 volume_db = -23.423
 
 [node name="Win" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_2kg1o")
-volume_db = -23.423
+stream = ExtResource("7_xov1b")
+volume_db = -8.432

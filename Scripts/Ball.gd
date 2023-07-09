@@ -9,9 +9,12 @@ extends CharacterBody3D
 @onready var enrageTimer = $EnrageTimer
 @onready var staticPlayer = $AudioStreamPlayer3D
 
+
+var spookTimerMin = 11;
+var spookTimerMax = 17;
 var getMad = false
 var looking = false;
-var SPEED = 3.0;
+var SPEED = 1.6;
 var rng = RandomNumberGenerator.new()
 var target
 
@@ -50,7 +53,7 @@ func roll(delta):
 	
 	var rotateDir = navAgent.velocity.cross(Vector3.DOWN).normalized()
 	
-	ballMesh.rotate(rotateDir,delta*SPEED)
+	ballMesh.rotate(rotateDir,delta*SPEED/radius)
 	pass
 
 
@@ -83,15 +86,19 @@ func devour(collide):
 func addVolume(mass):
 	volume+=mass
 	volumeChanged.emit(volume)
-	radius = sqrt(volume)
+	radius = sqrt(volume/5)/2
 	setRadius(radius)
 
 func setRadius(radius):
 	scale = Vector3(radius,radius,radius)
 	var meshBabies = ballMesh.get_children()
 	var inverseScale = Vector3(1/radius,1/radius,1/radius)
-	for i in range (1,meshBabies.size(),1):
+	for i in range (0,meshBabies.size(),1):
 		meshBabies[i].scale = inverseScale
+	if meshBabies.size()>=6:
+		var dispose = meshBabies[0] 
+		meshBabies.remove_at(0)
+		dispose.queue_free()
 
 
 
@@ -102,10 +109,13 @@ func _winProgress():
 		activeStart = true
 	else:
 		getMad = true;
-		SPEED+=0.25
+		SPEED+=0.9
+		spookTimerMin-=1.5;
+		spookTimerMax-=2;
+		addVolume(3)
 
 func startLookAwayTimer():
-	lookAwayTimer.wait_time = rng.randf_range(2,5)
+	lookAwayTimer.wait_time = rng.randf_range(spookTimerMin,spookTimerMax)
 	lookAwayTimer.start()
 
 

@@ -28,3 +28,7 @@ window/size/resizable=false
 [filesystem]
 
 import/fbx/enabled=false
+
+[navigation]
+
+3d/default_cell_height=0.7

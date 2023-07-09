@@ -15,7 +15,6 @@ func enter():
 	owner.navAgent.set_velocity(Vector3.ZERO)
 	owner.set_rotation(Vector3.ZERO)
 	owner.ballMesh.set_rotation(Vector3.ZERO)
-	print(owner.ballMesh.rotation)
 	owner.animator.play("Emerge")
 	pass
 
