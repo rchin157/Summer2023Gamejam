@@ -1,10 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://bm4lgl8geydge"]
+[gd_scene load_steps=9 format=3 uid="uid://bm4lgl8geydge"]
 
 [ext_resource type="Script" path="res://Scripts/Player.gd" id="1_6ptbj"]
+[ext_resource type="Shader" path="res://Shaders/Pixelate.gdshader" id="2_aklmw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lhxjq"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_dcfg8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dcp73"]
+render_priority = 0
+shader = ExtResource("2_aklmw")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_5xbod"]
+material = SubResource("ShaderMaterial_dcp73")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d3w53"]
 albedo_color = Color(1, 0, 1, 1)
@@ -32,8 +40,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.466468, 0)
 [node name="Camera3D" type="Camera3D" parent="Neck"]
 fov = 70.0
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Neck/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.466468, -0.589938)
+gi_mode = 0
+mesh = SubResource("PlaneMesh_5xbod")
+skeleton = NodePath("../../..")
+
 [node name="LookRayCast" type="RayCast3D" parent="Neck/Camera3D"]
-transform = Transform3D(0.819152, 0, -0.573576, 0, 1, 0, 0.573576, 0, 0.819152, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 enabled = false
 target_position = Vector3(0, 0, -200)
 collision_mask = 2
