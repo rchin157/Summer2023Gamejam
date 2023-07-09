@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://c3dwh0istroi3"
+path="res://.godot/imported/shitshed.obj-50afd69e1170ca8618d9b1cb4bcba46a.mesh"
+
+[deps]
+
+files=["res://.godot/imported/shitshed.obj-50afd69e1170ca8618d9b1cb4bcba46a.mesh"]
+
+source_file="res://Assets/Models/shitshed.obj"
+dest_files=["res://.godot/imported/shitshed.obj-50afd69e1170ca8618d9b1cb4bcba46a.mesh", "res://.godot/imported/shitshed.obj-50afd69e1170ca8618d9b1cb4bcba46a.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

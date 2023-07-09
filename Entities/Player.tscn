@@ -22,6 +22,9 @@ material = SubResource("ShaderMaterial_dcp73")
 [sub_resource type="Theme" id="Theme_6goff"]
 
 [sub_resource type="FontFile" id="FontFile_i2o7b"]
+subpixel_positioning = 0
+msdf_pixel_range = 14
+msdf_size = 128
 face_index = null
 embolden = null
 transform = null

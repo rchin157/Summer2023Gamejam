@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://d1ltbieq8y2hn"
+path="res://.godot/imported/altar.obj-9cc7696292a1722bfc4e133946b674b9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/altar.obj-9cc7696292a1722bfc4e133946b674b9.mesh"]
+
+source_file="res://Assets/Models/altar.obj"
+dest_files=["res://.godot/imported/altar.obj-9cc7696292a1722bfc4e133946b674b9.mesh", "res://.godot/imported/altar.obj-9cc7696292a1722bfc4e133946b674b9.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
