@@ -8,6 +8,7 @@ extends CharacterBody3D
 @export var activeStart: bool
 @onready var enrageTimer = $EnrageTimer
 @onready var staticPlayer = $AudioStreamPlayer3D
+@onready var sm = $StateMachine
 
 
 var spookTimerMin = 11;
@@ -20,7 +21,7 @@ var target
 
 signal volumeChanged(_volume)
 
-var volume = 1
+var volume = 5
 
 var radius = 1
 # Called when the node enters the scene tree for the first time.
@@ -68,7 +69,8 @@ func checkCollision():
 	var collider = collide.get_collider(0)
 	if collider.is_in_group("BallFood"):
 		devour(collide)
-
+	if collider.is_in_group("Player"):
+		sm._on_area_3d_body_entered(collider)
 	pass
 
 func devour(collide):
@@ -86,7 +88,7 @@ func devour(collide):
 func addVolume(mass):
 	volume+=mass
 	volumeChanged.emit(volume)
-	radius = sqrt(volume/5)/2
+	radius = sqrt(volume/5.0)/2.0
 	setRadius(radius)
 
 func setRadius(radius):
@@ -112,7 +114,7 @@ func _winProgress():
 		SPEED+=0.9
 		spookTimerMin-=1.5;
 		spookTimerMax-=2;
-		addVolume(3)
+		addVolume(5)
 
 func startLookAwayTimer():
 	lookAwayTimer.wait_time = rng.randf_range(spookTimerMin,spookTimerMax)
