@@ -17,7 +17,6 @@ size = 80
 shape = SubResource("ConcavePolygonShape3D_e3cu5")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-visible = false
 mesh = ExtResource("2_863tl")
 
 [node name="shitshed" parent="." instance=ExtResource("1_we34u")]

@@ -3,6 +3,7 @@ extends Node
 var winning = 0
 var musicArray
 var soundArray
+var diff = 0
 signal winProgress
 
 

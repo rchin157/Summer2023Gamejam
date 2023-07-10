@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-const SPEED = 10
+var SPEED = 10
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -15,6 +15,8 @@ var rng = RandomNumberGenerator.new()
 
 func _ready():
 	rng.randomize()
+	if MusicGlobal.diff == 1:
+		SPEED = 5
 
 func _unhandled_input(event: InputEvent):
 	if event is InputEventMouseButton:

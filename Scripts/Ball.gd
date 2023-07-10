@@ -30,6 +30,8 @@ func _ready():
 	MusicGlobal.winProgress.connect(_winProgress)
 	if !activeStart:
 		hide()
+	if MusicGlobal.diff == 1:
+		SPEED = 1
 	pass # Replace with function body.
 
 func startEnrage():
