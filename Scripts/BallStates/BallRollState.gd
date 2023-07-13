@@ -2,6 +2,10 @@
 extends BallState
 
 func update(_delta):
+	
+	pass
+
+func physics_update(_delta):
 	if owner.getMad:
 		owner.startEnrage()
 		if owner.looking:
@@ -10,9 +14,6 @@ func update(_delta):
 			stateMachine.transition_to("EnragedRoll")
 	else:
 		owner.roll(_delta)
-	pass
-
-func physics_update(_delta):
 	pass
 	
 func animationEnded(_animName):

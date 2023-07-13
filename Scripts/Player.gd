@@ -1,7 +1,7 @@
 extends CharacterBody3D
 
 
-var SPEED = 10
+var SPEED = 5
 const JUMP_VELOCITY = 4.5
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
@@ -11,7 +11,26 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 @onready var neck := $Neck
 @onready var camera := $Neck/Camera3D
 @onready var frontcast := $Neck/Camera3D/LookRayCast
+@onready var schizoDisplay := $Progress/CanvasLayer/SchizoText
 var rng = RandomNumberGenerator.new()
+
+var enragedText = ["i see you",
+"None escape the wheel of fortune",
+"unity. duty. destiny",
+"39 buried. 0 found",
+"I am the one who rolls",
+"with every blow I grow",
+"either way destiny still arrives",
+"fate stay night",
+"AAAAAAAAAAAAAAA",
+"it hears us",
+"gaze upon oblivion",
+"don't get cocky kid",
+"A god does not fear death",
+"I wear no mask",
+"elda taluta sarks sark",
+"look how it struggles to comprehend"]
+
 
 func _ready():
 	rng.randomize()
@@ -35,6 +54,15 @@ func _physics_process(delta):
 	var mx = Input.get_action_strength("ui_right")-Input.get_action_strength("ui_left")
 	var my = Input.get_action_strength("ui_down")-Input.get_action_strength("ui_up")
 	var horizontalVel = (neck.transform.basis * Vector3(mx, 0, my)).normalized()*SPEED
+
+	if horizontalVel.length() != 0:
+		if !walking:
+			walking = true
+			MusicGlobal.playSound(1)
+	else:
+		if walking:
+			walking = false
+			MusicGlobal.stopSound(1)
 
 	velocity.x = horizontalVel.x
 	velocity.z = horizontalVel.z
@@ -73,3 +101,9 @@ func debugRayCast(minimumDist):
 	
 	frontcast.set_rotation(Vector3.ZERO)
 	return frontcast.get_collision_point()
+
+func showSchiz():
+	schizoDisplay.text = "[center]"+enragedText[rng.randi_range(0,enragedText.size()-1)]
+	schizoDisplay.show()
+func hideSchiz():
+	schizoDisplay.hide()

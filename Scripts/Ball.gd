@@ -11,11 +11,13 @@ extends CharacterBody3D
 @onready var sm = $StateMachine
 
 
+
+
 var spookTimerMin = 11;
 var spookTimerMax = 17;
 var getMad = false
 var looking = false;
-var SPEED = 1.6;
+var SPEED = 2;
 var rng = RandomNumberGenerator.new()
 var target
 
@@ -99,10 +101,11 @@ func setRadius(radius):
 	var inverseScale = Vector3(1/radius,1/radius,1/radius)
 	for i in range (0,meshBabies.size(),1):
 		meshBabies[i].scale = inverseScale
-	if meshBabies.size()>=6:
-		var dispose = meshBabies[0] 
-		meshBabies.remove_at(0)
-		dispose.queue_free()
+		
+#	if meshBabies.size()>=6:
+#		var dispose = meshBabies[0]
+#		meshBabies.remove_at(0)
+#		dispose.queue_free()
 
 
 
@@ -113,7 +116,7 @@ func _winProgress():
 		activeStart = true
 	else:
 		getMad = true;
-		SPEED+=0.9
+		SPEED+=0.5
 		spookTimerMin-=1.5;
 		spookTimerMax-=2;
 		addVolume(5)

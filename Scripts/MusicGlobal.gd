@@ -6,7 +6,6 @@ var soundArray
 var diff = 0
 signal winProgress
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	musicArray = [
@@ -32,9 +31,12 @@ func playSound(index: int):
 func stopSound(index: int):
 	soundArray[index].stop()
 
+
 func stopAll():
 	for i in range(musicArray.size()):
 		musicArray[i].stop()
+	for i in range(soundArray.size()):
+		soundArray[i].stop()
 
 func raiseWinning():
 	winning+=1

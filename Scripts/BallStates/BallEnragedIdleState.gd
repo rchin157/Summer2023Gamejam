@@ -14,6 +14,8 @@ func enter():
 	owner.staticPlayer.stop()
 	owner.set_velocity(Vector3.ZERO)
 	owner.navAgent.set_velocity(Vector3.ZERO)
+	if owner.position.distance_to(owner.target.position) <=10:
+		owner.target.showSchiz()
 	pass
 func lookedAway():
 	owner.startLookAwayTimer()
@@ -36,4 +38,5 @@ func playerTouched():
 
 func exit():
 	owner.staticPlayer.play(0)
+	owner.target.hideSchiz()
 	pass

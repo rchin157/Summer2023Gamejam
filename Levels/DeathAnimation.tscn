@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://ek15ro3u7lai"]
+
+[ext_resource type="PackedScene" uid="uid://bm4lgl8geydge" path="res://Entities/Player.tscn" id="1_0x8yf"]
+[ext_resource type="Script" path="res://Scripts/Floor Platform.gd" id="2_lnb4d"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_qi4pe"]
+flip_faces = true
+radius = 1.0
+height = 2.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_bny7m"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0xx07"]
+seamless = true
+noise = SubResource("FastNoiseLite_bny7m")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_te0ec"]
+albedo_texture = SubResource("NoiseTexture2D_0xx07")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_m60qj"]
+size = Vector3(20, 0.5, 20)
+
+[node name="DeathAnimation" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_0x8yf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.06362, 0)
+
+[node name="ball" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+mesh = SubResource("SphereMesh_qi4pe")
+surface_material_override/0 = SubResource("StandardMaterial3D_te0ec")
+
+[node name="Floor Platform" type="CharacterBody3D" parent="."]
+collision_layer = 64
+collision_mask = 64
+floor_block_on_wall = false
+script = ExtResource("2_lnb4d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor Platform"]
+shape = SubResource("BoxShape3D_m60qj")
+
+[node name="Wall" type="CharacterBody3D" parent="."]
+transform = Transform3D(4.37114e-08, 1, -8.74228e-08, 1, -4.37114e-08, 0, -3.82137e-15, -8.74228e-08, -1, -10, 0, 0)
+collision_layer = 64
+collision_mask = 64
+up_direction = Vector3(1, 0, 0)
+floor_block_on_wall = false
+script = ExtResource("2_lnb4d")
+speed = 0.2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+shape = SubResource("BoxShape3D_m60qj")

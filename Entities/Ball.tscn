@@ -14,12 +14,12 @@ height = 2.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_fme2n"]
 
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_0xx07"]
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ale3s"]
 seamless = true
 noise = SubResource("FastNoiseLite_fme2n")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i31b1"]
-albedo_texture = SubResource("NoiseTexture2D_0xx07")
+albedo_texture = SubResource("NoiseTexture2D_ale3s")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ph1nv"]
 radius = 1.0
@@ -90,7 +90,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 stream = ExtResource("2_7vw6b")
 attenuation_model = 1
 autoplay = true
-max_distance = 20.0
+max_distance = 40.0
 
 [node name="Orbit" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6875, 0)
@@ -100,8 +100,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_ph1nv")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_desired_distance = 0.25
 target_desired_distance = 0.5
-path_height_offset = 1.0
+path_height_offset = 0.4
 avoidance_enabled = true
 
 [node name="VisibleOnScreenNotifier3D" type="VisibleOnScreenNotifier3D" parent="."]

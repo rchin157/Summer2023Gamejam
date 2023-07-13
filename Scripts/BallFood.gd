@@ -12,7 +12,10 @@ func _ready():
 
 func checkVolume(volume):
 	if volume >= size:
+		print("Disabling "+str(size))
 		$NavigationObstacle3D.avoidance_enabled = false
+		return true
+	return false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

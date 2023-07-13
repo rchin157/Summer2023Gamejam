@@ -2,18 +2,19 @@
 extends BallState
 
 func update(_delta):
-	owner.roll(_delta)
+	
 	
 	pass
 
 func physics_update(_delta):
+	owner.roll(_delta)
 	pass
 	
 func animationEnded(_animName):
 	pass
 	
 func enter():
-	owner.SPEED *=2
+	owner.SPEED *=4
 	pass
 
 func lookedAway():
@@ -37,5 +38,5 @@ func playerTouched():
 	pass
 
 func exit():
-	owner.SPEED/=2
+	owner.SPEED/=4
 	pass
